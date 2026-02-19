@@ -1,0 +1,12 @@
+.venv
+venv
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+.git/
+.gitignore
+.DS_Store
+postgres_data/
+*.log
+.env
