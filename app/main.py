@@ -7,8 +7,21 @@ from sqlalchemy.orm import Session
 from app.core.db import get_db
 from app.api import auth, projects, tasks, task_actions
 from app.core.observability import observability_middleware
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(auth.router)
 app.include_router(projects.router)
 app.include_router(tasks.router)
