@@ -11,6 +11,12 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+app.include_router(auth.router)
+app.include_router(projects.router)
+app.include_router(tasks.router)
+app.include_router(task_actions.router)
+app.middleware("http")(observability_middleware)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -21,12 +27,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-app.include_router(auth.router)
-app.include_router(projects.router)
-app.include_router(tasks.router)
-app.include_router(task_actions.router)
-app.middleware("http")(observability_middleware)
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
